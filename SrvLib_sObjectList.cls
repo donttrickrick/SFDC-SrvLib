@@ -182,7 +182,7 @@ public without sharing class SrvLib_sObjectList {
         }
         return lst;
     }
-    public Map<String, List<sObject>> groupByReturnSObject(String field) {
+    public Map<String, List<sObject>> groupByReturnSObjectList(String field) {
         Map<String, List<sObject>> sObjectMap = new Map<String, List<sObject>>();
         for(sObject sObj : l) {
             List<sObject> sObjLst = null;
