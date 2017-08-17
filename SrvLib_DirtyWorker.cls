@@ -1,4 +1,4 @@
-public class SrvLib_dirtyDMLWorker {
+public class SrvLib_DirtyWorker {
 	public void logDirty() {
 
 	}
