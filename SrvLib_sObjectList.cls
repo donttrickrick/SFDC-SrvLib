@@ -29,7 +29,7 @@ public without sharing class SrvLib_sObjectList {
     @AuraEnabled
     public final List<sObject> l { get; private set; }
     
-    public SrvLib_sObjectLikeList(List<sObject> sObjLst) {
+    public SrvLib_sObjectList(List<sObject> sObjLst) {
         l = sObjLst == null ? new List<sObject>() : sObjLst;
     }
     public Integer count() {
