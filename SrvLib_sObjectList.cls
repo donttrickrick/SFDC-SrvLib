@@ -105,16 +105,16 @@ public without sharing class SrvLib_sObjectList {
         }
         return mLst;
     }
-    public SrvLib_sObjectLikeList whereNot(String field, Object predictedValue) {
+    public SrvLib_sObjectList whereNot(String field, Object predictedValue) {
         List<sObject> whereLst = new List<sObject>();
         for(sObject sObj : l) {
             if(!SrvLib_Primitives.valueOf(getDrillDownFieldFromExisting(sObj, field, true)).equals(predictedValue)) {
                 whereLst.add(sObj);
             }
         }
-        return new SrvLib_sObjectLikeList(whereLst);
+        return new SrvLib_sObjectList(whereLst);
     }
-    public SrvLib_sObjectLikeList whereNotIn(String field, List<Object> predictedValueLst) {
+    public SrvLib_sObjectList whereNotIn(String field, List<Object> predictedValueLst) {
         List<sObject> whereLst = new List<sObject>();
         for(sObject sObj : l) {
             Boolean isIn = false;
@@ -128,18 +128,18 @@ public without sharing class SrvLib_sObjectList {
                 whereLst.add(sObj);
             }
         }
-        return new SrvLib_sObjectLikeList(whereLst);
+        return new SrvLib_sObjectList(whereLst);
     }
-    public SrvLib_sObjectLikeList whereEql(String field, Object predictedValue) {
+    public SrvLib_sObjectList whereEql(String field, Object predictedValue) {
         List<sObject> whereLst = new List<sObject>();
         for(sObject sObj : l) {
             if(SrvLib_Primitives.valueOf(getDrillDownFieldFromExisting(sObj, field, true)).equals(predictedValue)) {
                 whereLst.add(sObj);
             }
         }
-        return new SrvLib_sObjectLikeList(whereLst);
+        return new SrvLib_sObjectList(whereLst);
     }
-    public SrvLib_sObjectLikeList whereIn(String field, List<Object> predictedValueLst) {
+    public SrvLib_sObjectList whereIn(String field, List<Object> predictedValueLst) {
         List<sObject> whereLst = new List<sObject>();
         for(sObject sObj : l) {
             Boolean isIn = false;
@@ -153,9 +153,9 @@ public without sharing class SrvLib_sObjectList {
                 whereLst.add(sObj);
             }
         }
-        return new SrvLib_sObjectLikeList(whereLst);
+        return new SrvLib_sObjectList(whereLst);
     }
-    public Map<String, SrvLib_sObjectLikeList> groupBy(String field) {
+    public Map<String, SrvLib_sObjectList> groupBy(String field) {
         Map<String, List<sObject>> sObjectMap = new Map<String, List<sObject>>();
         for(sObject sObj : l) {
             List<sObject> sObjLst = null;
@@ -168,15 +168,15 @@ public without sharing class SrvLib_sObjectList {
             }
             sObjLst.add(sObj);
         }
-        Map<String, SrvLib_sObjectLikeList> sObjectLikeMap = new Map<String, SrvLib_sObjectLikeList>();
+        Map<String, SrvLib_sObjectList> sObjectLikeMap = new Map<String, SrvLib_sObjectList>();
         for(String key : sObjectMap.keySet()) {
-            sObjectLikeMap.put(key, new SrvLib_sObjectLikeList(sObjectMap.get(key)));
+            sObjectLikeMap.put(key, new SrvLib_sObjectList(sObjectMap.get(key)));
         }
         return sObjectLikeMap;
     }
-    public SrvLib_sObjectLikeList groupByThenGet(String groupByField, String key) {
-        SrvLib_sObjectLikeList lst = new SrvLib_sObjectLikeList(new List<sObject>());
-        Map<String, SrvLib_sObjectLikeList> sObjMap = groupBy(groupByField);
+    public SrvLib_sObjectList groupByThenGet(String groupByField, String key) {
+        SrvLib_sObjectList lst = new SrvLib_sObjectList(new List<sObject>());
+        Map<String, SrvLib_sObjectList> sObjMap = groupBy(groupByField);
         if(sObjMap.containsKey(key)) {
             lst = sObjMap.get(key);
         }
@@ -197,7 +197,7 @@ public without sharing class SrvLib_sObjectList {
         }
         return sObjectMap;
     }
-    public SrvLib_sObjectLikeList orderBy(String field) {
+    public SrvLib_sObjectList orderBy(String field) {
         List<SrvLib_Primitives.Value> valueLst = new List<SrvLib_Primitives.Value>();
         Map<SrvLib_Primitives.Value, List<sObject>> valueMap = new Map<SrvLib_Primitives.Value, List<sObject>>();
         for(sObject sObj : l) {
@@ -217,9 +217,9 @@ public without sharing class SrvLib_sObjectList {
        for(SrvLib_Primitives.Value v : valueLst) {
            lst.addAll(valueMap.get(v));
        }
-       return new SrvLib_sObjectLikeList(lst);
+       return new SrvLib_sObjectList(lst);
     }
-    public SrvLib_sObjectLikeList orderByDESC(String field) {
+    public SrvLib_sObjectList orderByDESC(String field) {
         return orderBy(field).reverse();
     }
     public List<Object> selectAny(String field) {
@@ -243,21 +243,21 @@ public without sharing class SrvLib_sObjectList {
         }
         return idLst;
     }
-    public SrvLib_sObjectLikeList selectSObject(String field) {
+    public SrvLib_sObjectList selectSObject(String field) {
         List<sObject> sObjLst = new List<sObject>();
         for(sObject sObj : l) {
             sObjLst.add((sObject)getDrillDownFieldFromExisting(sObj, field, false));
         }
-        return new SrvLib_sObjectLikeList(sObjLst);
+        return new SrvLib_sObjectList(sObjLst);
     }
-    public SrvLib_sObjectLikeList selectSObjects(String field) {
+    public SrvLib_sObjectList selectSObjects(String field) {
         List<sObject> sObjLst = new List<sObject>();
         for(sObject sObj : l) {
             sObjLst.addAll(sObj.getSObjects(field));
         }
-        return new SrvLib_sObjectLikeList(sObjLst);
+        return new SrvLib_sObjectList(sObjLst);
     }
-    public SrvLib_sObjectLikeList concat(SrvLib_sObjectLikeList another) {
+    public SrvLib_sObjectList concat(SrvLib_sObjectList another) {
         List<sObject> lst = new List<sObject>();
         for(sObject sObj : this.l) {
             lst.add(sObj);
@@ -265,9 +265,9 @@ public without sharing class SrvLib_sObjectList {
         for(sObject sObj : another.l) {
             lst.add(sObj);
         }
-        return new SrvLib_sObjectLikeList(lst);
+        return new SrvLib_sObjectList(lst);
     }
-    public SrvLib_sObjectLikeList distinct(String field) {
+    public SrvLib_sObjectList distinct(String field) {
         List<sObject> cloned = l.clone(); // shallow clone
         for(Integer i = 0; i < cloned.size(); i++) {
             for(Integer j = i + 1; j < cloned.size(); j++) {
@@ -277,7 +277,7 @@ public without sharing class SrvLib_sObjectList {
                 }
             }
         }
-        return new SrvLib_sObjectLikeList(cloned);
+        return new SrvLib_sObjectList(cloned);
     }
     public Boolean one(String field, List<Object> predictedValueLst) {
         Boolean ret = false;
@@ -331,7 +331,7 @@ public without sharing class SrvLib_sObjectList {
     }
     public Boolean areAllDistinct(String fieldName) {
         Boolean ret = true;
-        for(SrvLib_sObjectLikeList sObjLst : this.groupBy(fieldName).values()) {
+        for(SrvLib_sObjectList sObjLst : this.groupBy(fieldName).values()) {
             if(sObjLst.count() > 1) {
                 ret = false;
                 break;
@@ -339,19 +339,19 @@ public without sharing class SrvLib_sObjectList {
         }
         return ret;
     }
-    public SrvLib_sObjectLikeList reverse() {
+    public SrvLib_sObjectList reverse() {
         List<sObject> reversed = new List<sObject>();
         for(Integer i = l.size() - 1; i >= 0; i--) {
             reversed.add(l[i]);
         }
-        return new SrvLib_sObjectLikeList(reversed);
+        return new SrvLib_sObjectList(reversed);
     }
-    public SrvLib_sObjectLikeList take(Integer size) {
+    public SrvLib_sObjectList take(Integer size) {
         List<sObject> lst = new List<sObject>();
         for(Integer i = 0; i < size && i < l.size(); i++) {
             lst.add(l[i]);
         }
-        return new SrvLib_sObjectLikeList(lst);
+        return new SrvLib_sObjectList(lst);
     }
     public Object sum(String field) {
         SrvLib_Primitives.Value ret = new SrvLib_Primitives.ObjectValue(null);
@@ -418,34 +418,34 @@ public without sharing class SrvLib_sObjectList {
         }
         return ret;
     }
-    public SrvLib_sObjectLikeList union(SrvLib_sObjectLikeList another) {
+    public SrvLib_sObjectList union(SrvLib_sObjectList another) {
         List<sObject> newLst = new List<sObject>();
         newLst.addAll(this.original);
         newLst.addAll(another.original);
-        return new SrvLib_sObjectLikeList(newLst);
+        return new SrvLib_sObjectList(newLst);
     }
-    public SrvLib_sObjectLikeList except(SrvLib_sObjectLikeList another) {
+    public SrvLib_sObjectList except(SrvLib_sObjectList another) {
         List<sObject> newLst = new List<sObject>();
         newLst.addAll(this.original);
         newLst.addAll(another.original);
-        return new SrvLib_sObjectLikeList(newLst);
+        return new SrvLib_sObjectList(newLst);
     }
-    public SrvLib_sObjectLikeList intersect(SrvLib_sObjectLikeList another) {
+    public SrvLib_sObjectList intersect(SrvLib_sObjectList another) {
         List<sObject> newLst = new List<sObject>();
         newLst.addAll(this.original);
         newLst.addAll(another.original);
-        return new SrvLib_sObjectLikeList(newLst);
+        return new SrvLib_sObjectList(newLst);
     }
     
     */
-    // public SrvLib_sObjectLikeList doAction(ILikeActionInvokable action, Map<String, Object> params) {
+    // public SrvLib_sObjectList doAction(ILikeActionInvokable action, Map<String, Object> params) {
     //    for(sObject sObj : l) {
     //         action.invoke(sObj, params);
     //     }
     //     return this;
     // }
     
-    // public SrvLib_sObjectLikeList doBulkAction(ILikeListActionInvokable action, Map<String, Object> params) {
+    // public SrvLib_sObjectList doBulkAction(ILikeListActionInvokable action, Map<String, Object> params) {
     //     action.invoke(this, params);
     //     return this;
     // }
