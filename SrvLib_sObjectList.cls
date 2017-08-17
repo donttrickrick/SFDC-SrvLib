@@ -25,7 +25,7 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-public without sharing class SrvLib_sObjectLikeList {
+public without sharing class SrvLib_sObjectList {
     @AuraEnabled
     public final List<sObject> l { get; private set; }
     
